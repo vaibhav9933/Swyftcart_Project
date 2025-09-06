@@ -1,0 +1,198 @@
+{% load static %}
+
+<header class="section-header">
+  <!-- Top bar -->
+  <nav class="navbar navbar-expand-sm topbar border-bottom py-1">
+    <div class="container">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarTop"
+        aria-controls="navbarTop"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTop">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fa fa-globe"></i> English</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fa fa-dollar-sign"></i> USD</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+		  <li><a href="mailto:boatpro38@gmail.com" class="nav-link"><i class="fa fa-envelope"></i> Email Us</a>
+		  </li>
+		  <li><a href="tel:+919876543210" class="nav-link"><i class="fa fa-phone"></i> Call Us</a>
+		  </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main header -->
+  <section class="header-main shadow-sm">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Logo -->
+        <div class="col-lg-2 col-md-3 col-6">
+          <a href="{% url 'home' %}" class="brand-wrap">
+            <img class="logo" src="{% static 'images/logo.jpg' %}" alt="Swyftcart Logo">
+          </a>
+        </div>
+
+        <!-- Categories dropdown -->
+        <div class="col-lg-2 col-md-3 col-6 d-none d-md-block">
+          <div class="dropdown category-wrap">
+            <button
+              type="button"
+              class="btn category-btn dropdown-toggle w-100"
+              data-toggle="dropdown"
+            >
+              <i class="fa fa-bars"></i> Categories
+            </button>
+            <div class="dropdown-menu shadow">
+              <a class="dropdown-item" href="{% url 'store' %}">All Products</a>
+              {% for category in links %}
+              <a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Search bar -->
+        <div class="col-lg-5 col-md-6 col-sm-12 mt-2 mt-md-0">
+          <form action="{% url 'search' %}" method="GET" class="search-bar">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search for products..."
+                name="keyword"
+              />
+              <div class="input-group-append">
+                <button class="btn search-btn" type="submit">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- User & Cart -->
+        <div class="col-lg-3 col-md-12 mt-3 mt-lg-0">
+          <div class="d-flex justify-content-lg-end align-items-center">
+            {% if user.id is not None %}
+            <div class="widget-header mr-3 text-right">
+              <small class="text-primary fw-bold fs-6 ">Welcome, {{ user.first_name }}</small>
+              <div>
+                <a href="{% url 'dashboard' %}" class="link-colored">Dashboard</a> |
+                <a href="{% url 'logout' %}" class="link-colored">Logout</a>
+              </div>
+            </div>
+            {% else %}
+            <div class="widget-header mr-3 text-right">
+              <small class="text-primary">Welcome Guest!</small>
+              <div>
+                <a href="{% url 'login' %}" class="link-colored">Sign in</a> |
+                <a href="{% url 'register' %}" class="link-colored">Register</a>
+              </div>
+            </div>
+            {% endif %}
+
+            <a href="{% url 'cart' %}" class="btn cart-btn position-relative">
+              <i class="fa fa-shopping-cart"></i>
+              <span class="badge badge-danger position-absolute" style="top:0; right:0;">
+                {{ cart_count }}
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
+
+<!-- Custom CSS -->
+<style>
+/* Top bar gradient */
+.topbar {
+  background: linear-gradient(90deg, #0d47a1, #6a92baff);
+}
+.topbar .nav-link {
+  color: #fff !important;
+  font-size: 14px;
+  font-weight: 500;
+}
+.topbar .nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Logo */
+.logo {
+  max-height: 60px;
+  width: auto;
+  height: auto;
+}
+
+/* Search bar */
+.search-bar .form-control {
+  border-radius: 30px 0 0 30px;
+  border: 2px solid #87CEEB;
+}
+.search-btn {
+  border-radius: 0 30px 30px 0;
+  background: #87CEEB;
+  color: #fff;
+}
+.search-btn:hover {
+  background: #87CEEB;
+}
+
+/* Category dropdown */
+.category-btn {
+  border-radius: 30px;
+  font-weight: 600;
+  background: #87CEEB;
+  color: #1b1919ff;
+}
+.category-btn:hover {
+  background: #60c6efff;
+}
+.category-wrap .dropdown-menu {
+  border-radius: 10px;
+}
+
+/* Widget header links */
+.widget-header .link-colored {
+  color: #1c1b16ff;
+  font-weight: 600;
+}
+.widget-header .link-colored:hover {
+  color: #42c842ff;
+}
+
+/* Cart button */
+.cart-btn {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #4caf50;
+  color: #fff;
+}
+.cart-btn:hover {
+  background: #43a047;
+}
+.badge-danger {
+  font-size: 12px;
+  padding: 4px 6px;
+}
+</style>

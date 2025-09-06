@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/common.css' %}">
+<link rel="stylesheet" href="{% static 'css/order_history.css' %}">
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" role="alert">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
+<script>
+  // Auto-hide alerts after 3 seconds
+  setTimeout(function() {
+    document.querySelectorAll('.alert').forEach(function(alert) {
+      alert.style.transition = "opacity 0.5s ease";
+      alert.style.opacity = "0";
+      setTimeout(() => alert.remove(), 500); // Remove after fade
+    });
+  }, 3000);
+</script>
+
+<div class="container">
+  <div class="row">
+    {% include 'includes/dashboard_sidebar.html'%}
+  
+    <main class="col-md-9">
+      <article class="card">
+        <header class="card-header">
+          <strong class="d-inline-block mr-3">Your Order History :</strong>
+        </header>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Order #</th>
+                    <th scope="col">Billing Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Order Total</th>
+                    <th scope="col">Order Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in orders %}
+                  <tr>
+                    <th scope="row" data-label="Order #">
+                      <a href="{% url 'order_detail' order.order_number %}">
+                        {{ order.order_number }}
+                      </a>
+                    </th>
+                    <td data-label="Billing Name">{{ order.full_name }}</td>
+                    <td data-label="Phone">{{ order.phone }}</td>
+                    <td data-label="Order Total">${{ order.order_total }}</td>
+                    <td data-label="Order Date">{{ order.created_at }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </article> 
+    </main>
+  </div>
+</div>
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %}
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/common.css' %}">
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+{% if messages %}
+  {% for message in messages %}
+	<div class="alert alert-{{ message.tags }}" role="alert">
+	  {{ message }}
+	</div>
+  {% endfor %}
+{% endif %}
+
+<script>
+	// Auto-hide alerts after 3 seconds
+	setTimeout(function() {
+		document.querySelectorAll('.alert').forEach(function(alert) {
+			alert.style.transition = "opacity 0.5s ease";
+			alert.style.opacity = "0";
+			setTimeout(() => alert.remove(), 500); // Remove after fade
+		});
+	}, 3000);
+</script>
+
+<div class="container">
+	<div class="row">
+		{% include 'includes/dashboard_sidebar.html'%}
+	
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header">
+			<strong class="d-inline-block mr-3">Your order History : </strong>
+
+		</header>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-12">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">Order #</th>
+                            <th scope="col">Billing Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Order Total</th>
+                            <th scope="col">Order Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                            <th scope="row"><a href="{% url 'order_detail' order.order_number %}">{{order.order_number}}</th>
+                            <td>{{order.full_name}}</td>
+                            <td>{{order.phone}}</td>
+                            <td>${{order.order_total}}</td>
+                            <td>{{order.created_at}}</td>
+                            </tr>
+                            {% endfor %}
+                           
+                        </tbody>
+                        </table>
+                </div>
+			</div>
+		</div>
+		</article> 
+	</main>
+</div>
+</div>
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %} {% endcomment %}
+

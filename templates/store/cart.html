@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/common.css' %}">
+<section class="section-content padding-y bg">
+<div class="container">
+
+<!-- ============================ COMPONENT 1 ================================= -->
+
+{% if not cart_items %}
+<!-- Empty Cart Message -->
+<div class="text-center p-5" style="background: linear-gradient(to right, #eccb76ff, #f8b500);
+ border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin: 50px auto; max-width: 600px;">
+    <img src="{% static 'images/Empty_cart.jpg' %}" alt="Empty Cart" style="width: 150px;
+	 margin-bottom: 20px; border-radius: 48%;">
+    <h2 style="color: #333; font-weight: bold;">Your Shopping Cart is Empty</h2>
+    <p style="color: #555;">Looks like you haven't added anything yet.</p>
+    <a href="{% url 'store' %}" class="btn btn-outline-dark btn-lg mt-3" style="border-radius: 50px;
+	 padding: 10px 30px; linear-gradient(to right, #10f332ff, #f8b500); transition: all 0.3s;">
+        🛒 Continue Shopping
+    </a>
+</div>
+<!-- Empty Cart Message End -->
+{% else %}
+
+<div class="row">
+	<aside class="col-lg-9">
+<div class="card">
+<table class="table table-borderless table-shopping-cart">
+<thead class="text-muted">
+<tr class="small text-uppercase">
+  <th scope="col">Product</th>
+  <th scope="col" width="120">Quantity</th>
+  <th scope="col" width="120">Price</th>
+  <th scope="col" class="text-right" width="200"> </th>
+</tr>
+</thead>
+<tbody>
+{% for cart_item in cart_items %}
+<tr>
+	<td>
+		<figure class="itemside align-items-center">
+			<div class="aside"><img src="{{cart_item.product.images.url }}" class="img-sm"></div>
+			<figcaption class="info">
+				<a href="{{ cart_item.product.get_url }}" class="title text-dark">{{cart_item.product.product_name }}</a>
+				<p class="text-muted small">
+					{% if cart_item.variation.all %}
+					{% for item in cart_item.variation.all%}
+					{{ item.variation_category|capfirst }} : {{ item.variation_value | capfirst}}<br>
+					{% endfor %}
+					{% endif %}
+				</p>
+			</figcaption>
+		</figure>
+	</td>
+	<td> 
+	<div class="col">
+  <div class="input-group input-spinner d-flex flex-nowrap align-items-center" style="max-width: 220px; border: 1px solid #dee2e6; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
+    
+    <!-- Minus Button -->
+    <div class="input-group-prepend">
+      <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="btn btn-outline-danger border-0 rounded-0" type="button" id="button-minus">
+        <i class="fa fa-minus"></i>
+      </a>
+    </div>
+    
+    <!-- Quantity Input -->
+    <input type="text" class="form-control text-center border-0" style="width: 60px; font-weight: 500;" value="{{cart_item.quantity}}" readonly>
+
+    <!-- Plus Button -->
+    <div class="input-group-append">
+      <form action="{% url 'add_cart' cart_item.product.id %}" method="POST" class="m-0 p-0">
+        {% csrf_token %}
+        {% for item in cart_item.variation.all %}
+          <input type="hidden" name="{{ item.variation_category | lower }}" value="{{ item.variation_value | capfirst }}">
+        {% endfor %}
+        <button class="btn btn-outline-success border-0 rounded-0" type="submit" id="button-plus">
+          <i class="fa fa-plus"></i>
+        </button>
+      </form>
+    </div>
+
+  </div> <!-- input-group -->
+</div> <!-- col -->
+	<!-- col.// -->
+	
+	<td> 
+		<div class="price-wrap d-flex flex-column" style="line-height: 1.4; padding: 0.25rem 0;">
+  <var class="price text-success" style="font-size: 1.25rem; font-weight: 600;">
+    $ {{ cart_item.sub_total }}
+  </var>
+  <small class="text-muted" style="font-size: 0.880rem;">
+    $ {{ cart_item.product.price }} each
+  </small>
+</div> <!-- price-wrap -->
+
+	<td class="text-right">
+  <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}"
+     onclick="return confirm('Are you sure you want to remove this item?');"
+     class="btn btn-outline-danger d-inline-flex align-items-center gap-2 px-3 py-2"
+     style="border-radius: 0.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); font-weight: 500;">
+    <i class="fa fa-trash"></i> <span>Remove</span>
+  </a>
+</td>
+
+</tr>
+{% endfor %}
+
+
+</tbody>
+</table>
+</div> <!-- card.// -->
+
+	</aside> <!-- col.// -->
+	<aside class="col-lg-3">
+		<div class="card shadow-sm" style="border-radius: 15px; background: linear-gradient(to bottom right, #f8f9fa, #e9ecef); padding: 15px;">
+  <div class="card-body">
+    <dl class="d-flex justify-content-between align-items-center mb-2" style="color: #2c3e50;">
+      <dt>Total price:</dt>
+      <dd class="text-right">$ {{total}}</dd>
+    </dl>
+    <dl class="d-flex justify-content-between align-items-center mb-2" style="color: #2c3e50;">
+      <dt>Tax:</dt>
+      <dd class="text-right"> $ {{tax}}</dd>
+    </dl>
+    <dl class="d-flex justify-content-between align-items-center mb-3" style="color: #2c3e50;">
+      <dt>Grand Total:</dt>
+      <dd class="text-right text-dark b"><strong>$ {{grand_total}}</strong></dd>
+    </dl>
+    <hr style="border-color: #6c757d;">
+    <p class="text-center mb-3">
+      <img src="{% static 'images/misc/payments.png' %}" height="26" class="img-fluid">
+    </p>
+    <a href="{% url 'checkout' %}" class="btn btn-primary btn-block mb-2" style="background-color: #007bff; border-radius: 25px;"> Checkout </a>
+    <a href="{% url 'store' %}" class="btn btn-outline-secondary btn-block" style="border-radius: 25px;">Continue Shopping</a>
+  </div>
+</div>
+
+
+</aside> <!-- col.// -->
+
+
+</div> <!-- row.// -->
+
+
+
+{% endif %}
+
+
+
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %}

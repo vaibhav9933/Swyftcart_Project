@@ -1,0 +1,102 @@
+/* Container & Layout */
+.section-conten {
+  background: #dce3ea;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.card {
+  border: none;
+  background: #e9edf1;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #ffffff, #f1f5f9);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0 !important;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 1rem 1.2rem;
+  color: #2d3748;
+}
+
+/* Alerts */
+.alert {
+  border-radius: 8px;
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Profile Picture */
+.card-body img {
+  border-radius: 50%;
+  border: 3px solid #e2e8f0;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-body img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Form Styling */
+form label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: #374151;
+}
+form input, form select, form textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+form input:focus, form select:focus, form textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+  outline: none;
+}
+
+/* Submit Button */
+.btn-primary {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border: none;
+  border-radius: 30px;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(37,99,235,0.3);
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .form-row {
+    display: block;
+  }
+  .form-group {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+  .card-body {
+    text-align: center;
+  }
+  .card-body img {
+    margin: 0 auto 1rem;
+  }
+}
+

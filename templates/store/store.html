@@ -1,0 +1,448 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/common.css' %}">
+
+<!-- Page Header -->
+<section 
+  class="section-pagetop bg" 
+  style="
+    padding: 3rem 1rem;
+    background: linear-gradient(135deg, #e0f7fa, #e1f5fe, #f3e5f5);
+    background-size: 200% 200%;
+    animation: gradientBG 15s ease infinite;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  "
+>
+  <div class="container" style="max-width: 1100px; margin: auto;">
+    {% if 'search' in request.path %}
+      <h2 
+        class="title-page" 
+        style="
+          font-size: clamp(1.8rem, 3vw, 2.6rem);
+          font-weight: 700;
+          margin: 0;
+          padding: 0.5rem 1.5rem;
+          background: linear-gradient(90deg, #4fc3f7, #81c784);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: 1px 1px 6px rgba(0,0,0,0.08);
+          display: inline-block;
+        "
+      >
+        Search Results
+      </h2>
+    {% else %}
+      <h2 
+        class="title-page" 
+        style="
+          font-size: clamp(1.8rem, 3vw, 2.6rem);
+          font-weight: 700;
+          margin: 0;
+          padding: 0.5rem 1.5rem;
+          background: linear-gradient(90deg, #4fc3f7, #81c784);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: 1px 1px 6px rgba(0,0,0,0.08);
+          display: inline-block;
+        "
+      >
+        Our Store
+      </h2>
+    {% endif %}
+
+    <p 
+      style="
+        margin-top: 0.5rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: #555;
+        font-weight: 400;
+      "
+    >
+      Discover fresh arrivals and best picks just for you
+    </p>
+  </div>
+</section>
+
+<style>
+/* Smooth background animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+</style>
+
+
+<!-- Main Content -->
+<section class="section-content padding-y">
+<div class="container">
+<div class="row">
+
+  <!-- Sidebar Filters -->
+  <aside class="col-md-3">
+    <div class="card">
+
+      <!-- Category Filter -->
+      <article class="filter-group">
+        <header class="card-header">
+          <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true">
+            <i class="icon-control fa fa-chevron-down"></i>
+            <h6 class="title">Categories</h6>
+          </a>
+        </header>
+        <div class="filter-content collapse show" id="collapse_1">
+          <div class="card-body">
+            <ul class="list-menu">
+              <li><a href="{% url 'store' %}">All Products</a></li>
+              {% for category in links %}
+              <li>
+                <a href="{{ category.get_url }}">{{ category.category_name }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Size Filter -->
+      <article class="filter-group">
+        <header class="card-header">
+          <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true">
+            <i class="icon-control fa fa-chevron-down"></i>
+            <h6 class="title">Sizes</h6>
+          </a>
+        </header>
+        <div class="filter-content collapse show" id="collapse_2">
+          <div class="card-body">
+            <form method="get" action="">
+              {% for size in sizes %}
+                <label class="checkbox-btn">
+                  <input type="radio" name="size" value="{{ size }}"
+                         {% if size == selected_size %}checked{% endif %}>
+                  <span class="btn btn-light">{{ size }}</span>
+                </label>
+              {% endfor %}
+              <button type="submit" class="btn btn-sm btn-primary btn-block mt-2">Apply</button>
+            </form>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </aside>
+
+  <!-- Products List -->
+  <main class="col-md-9">
+
+    {% if products %}
+    <div class="row">
+      {% for product in products %}
+      <div class="col-md-4">
+        <figure class="card card-product-grid">
+          <div class="img-wrap">
+            <a href="{{ product.get_url }}">
+              <img src="{{ product.images.url }}" alt="{{ product.product_name }}">
+            </a>
+          </div>
+          <figcaption class="info-wrap">
+            <div class="fix-height">
+              <a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+              <div class="price-wrap mt-2">
+                <span class="price">$ {{ product.price }}</span>
+              </div>
+			  	 <div class="rating-star">
+                  <span>
+                    <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif single_product.averageReview >= 0.5 and single_product.averageReview < 1 %}-half-o{% endif %}" aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif single_product.averageReview >= 1.5  and single_product.averageReview < 2 %}-half-o{% endif %}" aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif single_product.averageReview >= 2.5 and single_product.averageReview < 3 %}-half-o{% endif %}" aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif single_product.averageReview >= 3.5 and single_product.averageReview < 4 %}-half-o{% endif %}" aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif single_product.averageReview >= 4.5 and single_product.averageReview < 5 %}-half-o{% endif %}" aria-hidden="true"></i>
+
+                  </span>
+                </div>
+            </div>
+            <a href="{{ product.get_url }}" class="btn btn-block btn-primary">View</a>
+          </figcaption>
+        </figure>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <nav class="mt-4" aria-label="Page navigation">
+      {% if products.has_other_pages %}
+      <ul class="pagination">
+        {% if products.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ products.previous_page_number }}{% if selected_size %}&size={{ selected_size }}{% endif %}">
+            Previous
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+        {% endif %}
+
+        {% for i in products.paginator.page_range %}
+          {% if products.number == i %}
+            <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ i }}{% if selected_size %}&size={{ selected_size }}{% endif %}">{{ i }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+
+        {% if products.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ products.next_page_number }}{% if selected_size %}&size={{ selected_size }}{% endif %}">
+            Next
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">Next</span></li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </nav>
+
+    {% else %}
+<!--Search result not found start -->
+	<style>
+@keyframes fade{10%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
+</style>
+
+<div style="display:flex;justify-content:center;align-items:center;height:70vh;">
+  <div style="text-align:center;padding:30px;width:360px;border-radius:16px;background:#f0f4f8;box-shadow:0 6px 20px rgba(0,0,0,0.1);animation:fade 0.6s ease;">
+    
+    <img src="{% static 'images/NO_data.gif' %}" alt="No Results" style="width:120px;margin-bottom:16px;">
+    
+    <h3 style="margin:10px 0;color:#333;">No Results Found</h3>
+    <p style="font-size:15px;color:#666;">Please try again with different keywords.</p>
+    
+    <a href="{% url 'store' %}" style="display:inline-block;margin-top:16px;padding:8px 20px;background:#007bff;color:#fff;border-radius:24px;text-decoration:none;font-size:15px;" onmouseover="this.style.background='#0056b3'" onmouseout="this.style.background='#121314ff'">Go Back</a>
+  </div>
+</div>
+    {% endif %}
+
+  </main>
+
+</div>
+</div>
+</section>
+{% endblock %}
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/common.css' %}">
+
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg">
+<div class="container">
+	{% if 'search' in request.path %}
+	<h2 class="title-page">Search Result</h2>
+	{% else %}
+	<h2 class="title-page">Our Store</h2>
+	{% endif %}
+
+</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION INTRO END// ========================= -->
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+<div class="container">
+
+<div class="row">
+	<aside class="col-md-3">
+		
+<div class="card">
+	<article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+				<i class="icon-control fa fa-chevron-down"></i>
+				<h6 class="title">Categories</h6>
+			</a>
+		</header>
+		<div class="filter-content collapse show" id="collapse_1" style="">
+			<div class="card-body">
+				
+				<ul class="list-menu">
+					<li><a href="{% url 'store' %}">All Products </a></li>
+					{% for category in links %}
+				<li><a href="{{category.get_url }}">{{category.category_name}}  </a></li>
+					{% endfor %}
+				</ul>
+
+			</div> <!-- card-body.// -->
+		</div>
+	</article> <!-- filter-group  .// -->
+
+	<form method="get" action="">
+  {% for size in sizes %}
+    <label class="checkbox-btn">
+      <input type="radio" name="size" value="{{ size }}" 
+        {% if size == selected_size %}checked{% endif %}>
+      <span class="btn btn-light">{{ size }}</span>
+    </label>
+  {% endfor %}
+  <button type="submit" class="btn btn-sm btn-primary btn-block mt-2">Apply</button>
+</form>
+<script>
+document.querySelectorAll('input[name="size"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+        this.form.submit();
+    });
+});
+</script>
+
+	
+	<article class="filter-group">
+		<header class="card-header">
+			<a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
+				<i class="icon-control fa fa-chevron-down"></i>
+				<h6 class="title">Price range </h6>
+			</a>
+		</header>
+		<div class="filter-content collapse show" id="collapse_3" style="">
+			<div class="card-body">
+				
+				<div class="form-row">
+				<div class="form-group col-md-6">
+				  <label>Min</label>
+				  <!-- <input class="form-control" placeholder="$0" type="number"> -->
+				  	<select class="mr-2 form-control">
+						<option value="0">$0</option>
+						<option value="50">$50</option>
+						<option value="100">$100</option>
+						<option value="150">$150</option>
+						<option value="200">$200</option>
+						<option value="500">$500</option>
+						<option value="1000">$1000</option>
+					</select>
+				</div>
+				<div class="form-group text-right col-md-6">
+				  <label>Max</label>
+				  	<select class="mr-2 form-control">
+						<option value="50">$50</option>
+						<option value="100">$100</option>
+						<option value="150">$150</option>
+						<option value="200">$200</option>
+						<option value="500">$500</option>
+						<option value="1000">$1000</option>
+						<option value="2000">$2000+</option>
+					</select>
+				</div>
+				</div> <!-- form-row.// -->
+				<button class="btn btn-block btn-primary">Apply</button>
+			</div><!-- card-body.// -->
+		</div>
+	</article> <!-- filter-group .// -->
+	
+</div> <!-- card.// -->
+
+	</aside> <!-- col.// -->
+	<main class="col-md-9">
+
+<header class="border-bottom mb-4 pb-3">
+		<div class="form-inline">
+			<span class="mr-md-auto"> <b>{{ product_count }}<b> Items found </span>
+			
+		</div>
+</header><!-- sect-heading -->
+
+<div class="row">
+	{%if products %}
+    {% for product in products %}
+	<div class="col-md-4">
+		<figure class="card card-product-grid">
+			<div class="img-wrap"> 
+				
+				<a href="{{product.get_url }}"><img src="{{product.images.url}}"></a>
+				
+			</div> <!-- img-wrap.// -->
+			<figcaption class="info-wrap">
+				<div class="fix-height">
+					<a href="{{ product.get_url }}" class="title">{{ product.product_name }}</a>
+					<div class="price-wrap mt-2">
+						<span class="price">$ {{product.price }}</span>
+						 <div class="rating-star">
+                  <span>
+                    <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif single_product.averageReview >= 0.5 and single_product.averageReview < 1 %}-half-o{% endif %}" aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif single_product.averageReview >= 1.5  and single_product.averageReview < 2 %}-half-o{% endif %}" aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif single_product.averageReview >= 2.5 and single_product.averageReview < 3 %}-half-o{% endif %}" aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif single_product.averageReview >= 3.5 and single_product.averageReview < 4 %}-half-o{% endif %}" aria-hidden="true"></i>
+                    <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif single_product.averageReview >= 4.5 and single_product.averageReview < 5 %}-half-o{% endif %}" aria-hidden="true"></i>
+
+                  </span>
+                </div>
+					</div> <!-- price-wrap.// -->
+				</div>
+				<a href="{{product.get_url}}" class="btn btn-block btn-primary">View Details  </a>
+			</figcaption>
+		</figure>
+	</div> <!-- col.// -->
+    {% endfor %}
+
+
+<!--Search result not found start -->
+	{% else %}
+	<style>
+@keyframes fade{10%{opacity:0;transform:translateY(10px);}100%{opacity:1;transform:translateY(0);}}
+</style>
+
+<div style="display:flex;justify-content:center;align-items:center;height:70vh;">
+  <div style="text-align:center;padding:30px;width:360px;border-radius:16px;background:#f0f4f8;box-shadow:0 6px 20px rgba(0,0,0,0.1);animation:fade 0.6s ease;">
+    
+    <img src="{% static 'images/NO_data.gif' %}" alt="No Results" style="width:120px;margin-bottom:16px;">
+    
+    <h3 style="margin:10px 0;color:#333;">No Results Found</h3>
+    <p style="font-size:15px;color:#666;">Please try again with different keywords.</p>
+    
+    <a href="{% url 'store' %}" style="display:inline-block;margin-top:16px;padding:8px 20px;background:#007bff;color:#fff;border-radius:24px;text-decoration:none;font-size:15px;" onmouseover="this.style.background='#0056b3'" onmouseout="this.style.background='#121314ff'">Go Back</a>
+  </div>
+</div>
+	{% endif %}
+<!--Search result not found end -->
+</div> <!-- row end.// -->
+
+
+<nav class="mt-4" aria-label="Page navigation sample">
+	{% if products.has_other_pages %}
+  <ul class="pagination">
+	{% if products.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+	{% else %}
+	    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+	{% endif %}
+
+	{% for i in products.paginator.page_range %}
+		{% if products.number == i %}
+    		<li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+		{% else %}
+		    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+		{% endif %}
+		{% endfor %}
+
+		{% if products.has_next %}
+    		<li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Next</a></li>
+		{% else %}
+			<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+		{% endif %}
+  </ul>
+  {% endif %}
+</nav>
+
+	</main> <!-- col.// -->
+
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+{% endblock %} {% endcomment %}

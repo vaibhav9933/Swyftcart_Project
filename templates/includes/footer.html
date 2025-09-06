@@ -1,0 +1,111 @@
+<!-- ========================= ADVANCED FOOTER ========================= -->
+<footer class="footer text-dark pt-5">
+  <div class="footer-top py-2 text-center text-white">
+    <p class="mb-0">✨ Welcome to <strong>{{ site_name }}</strong> — Your trusted shopping partner ✨</p>
+  </div>
+
+  <div class="container py-2">
+    <div class="row gy-4">
+
+      <!-- About -->
+      <div class="col-lg-3 col-md-6">
+        <h6 class="fw-bold text-uppercase text-primary mb-3">Join Our Community</h6>
+        <p class="small text-muted">{{ site_description }}</p>
+        <a href="https://chat.whatsapp.com/CiOqtECNS3pKDhSAPJAij6" target="_blank" rel="noopener noreferrer"
+   			class="btn btn-success btn-sm rounded-pill shadow-sm">
+  			<i class="fab fa-whatsapp me-2"></i> Join Our WhatsApp Group
+		</a>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-3 col-md-6">
+        <h6 class="fw-bold text-uppercase text-info mb-3">Quick Links</h6>
+        <ul class="list-unstyled small">
+          <li><a href="{% url 'home' %}" class="footer-link"><i class="fas fa-angle-right me-2"></i> Home</a></li>
+          <li><a href="{% url 'store' %}" class="footer-link"><i class="fas fa-angle-right me-2"></i> Shop</a></li>
+          <li><a href="{% url 'about_us' %}" class="footer-link"><i class="fas fa-angle-right me-2"></i> About Us</a></li>
+          <li><a href="{% url 'contact'%}" class="footer-link"><i class="fas fa-angle-right me-2"></i> Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-lg-3 col-md-6">
+        <h6 class="fw-bold text-uppercase text-success mb-3">Get In Touch</h6>
+        <p class="small mb-1"><i class="fas fa-envelope me-2 text-danger"></i> boatpro38@gmail.com </p>
+        <p class="small mb-1"><i class="fas fa-phone me-2 text-warning"></i> 9876543210 </p>
+        <p class="small"><i class="fas fa-map-marker-alt me-2 text-primary"></i> Swyftcart_office , uma road , Gujarat , India </p>
+      </div>
+
+      <!-- Payments & Social -->
+      <div class="col-lg-3 col-md-6">
+        <h6 class="fw-bold text-uppercase text-warning mb-3">We Accept</h6>
+        <div class="d-flex mb-3">
+          <i class="fab fa-cc-visa fa-2x mx-2 text-primary"></i>
+          <i class="fab fa-cc-mastercard fa-2x mx-2 text-danger"></i>
+          <i class="fab fa-cc-paypal fa-2x mx-2 text-info"></i>
+          <i class="fab fa-cc-amex fa-2x mx-2 text-success"></i>
+        </div>
+        <h6 class="fw-bold text-uppercase text-dark mb-2">Follow Us</h6>
+        <div>
+          <a href="https://www.facebook.com/" class="social-link mx-2"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com/i/flow/login" class="social-link mx-2"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/" class="social-link mx-2"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/login" class="social-link mx-2"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom -->
+  <div class="footer-bottom text-center py-3 mt-4 border-top">
+    <p class="small mb-0 text-muted">
+      &copy; 2019 - {{ 2025 }} {{ Swyftcart }} | Designed with ❤️ for shoppers
+    </p>
+  </div>
+</footer>
+<!-- ========================= FOOTER END // ========================= -->
+
+<!-- keep your existing script untouched -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.thumb a').click(function(e){
+      e.preventDefault();
+      $('.mainImage img').attr("src",$(this).attr("href"));
+    })
+  })
+</script>
+</body>
+</html>
+
+<!-- Advanced Footer CSS -->
+<style>
+  .footer {
+    background: #d7ecf5ff;
+  }
+  .footer-top {
+    background: linear-gradient(90deg, #77b7efff, #00f2fe);
+    font-size: 14px;
+  }
+  .footer-link {
+    color: #555;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 6px;
+    transition: all 0.3s ease;
+  }
+  .footer-link:hover {
+    color: #0d6efd;
+    transform: translateX(4px);
+  }
+  .social-link {
+    font-size: 1.2rem;
+    color: #444;
+    display: inline-block;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  .social-link:hover {
+    color: #198754;
+    transform: scale(1.2);
+  }
+</style>

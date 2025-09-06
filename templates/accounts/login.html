@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/common.css' %}">
+
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y" style="min-height:90vh; background-color: #c9ddf4ff;">
+{% if request.GET.command == 'verification' %}
+<div class="container mx-auto alert verification-alert text-center" role="alert" style="max-width: 600px; margin-top:100px;">
+  <img src="{% static 'images/got_mail.gif' %}" alt="No Results" style="width:120px; margin-bottom:16px; display:block; margin-left:auto; margin-right:auto;">
+  
+  Thank you for registering with us. We have sent you a verification email to your address  
+  <strong>[{{ request.GET.email }}]</strong>. Please verify it.
+  
+  <br><br>
+  Already verified?  
+  <a href="{% url 'login' %}" class="login-btn">Login</a>
+</div>
+{% else %}
+
+  <!-- ============================ COMPONENT LOGIN   ================================= -->
+  <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+    <div class="card-body">
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <h4 class="card-title mb-4">Sign in</h4>
+      <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email Address" name="email" required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" name="password" required>
+        </div>
+
+        <div class="form-group">
+          <a href="{% url 'forgotpassword' %}" class="float-right">Forgot password?</a> 
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Sign up</a></p>
+  <br><br>
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+{% endif %}
+<script>
+  setTimeout(function() {
+    const alerts = document.querySelectorAll('.alert:not(.verification-alert)');
+    alerts.forEach(alert => alert.remove());
+  }, 4000);
+</script>
+
+
+
+
+
+{% endblock %}

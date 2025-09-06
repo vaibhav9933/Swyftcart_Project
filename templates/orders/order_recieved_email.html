@@ -1,0 +1,160 @@
+{% autoescape off %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Order Received</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Responsive tweaks */
+    @media only screen and (max-width: 600px) {
+      .container { width: 100% !important; }
+      .p-24 { padding: 16px !important; }
+      .h1 { font-size: 22px !important; }
+      .btn { display:block !important; width:100% !important; text-align:center !important; }
+    }
+    .btn {
+      text-decoration:none;
+      padding:14px 22px;
+      border-radius:8px;
+      font-weight:600;
+      font-size:15px;
+      display:inline-block;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15);
+      transition:all .2s ease-in-out;
+    }
+    .btn:hover { opacity:0.9; transform:translateY(-2px); }
+  </style>
+</head>
+<body style="margin:0;background:#f3f4f6;font-family: 'Segoe UI', Roboto, Arial, sans-serif; color:#111827;">
+
+  <!-- Outer wrapper -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#f3f4f6;">
+    <tr>
+      <td align="center" style="padding:24px;">
+        <!-- Card -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" class="container" style="width:600px; max-width:600px; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:0 10px 35px rgba(0,0,0,0.08);">
+
+          <!-- Hero / Header -->
+          <tr>
+            <td style="padding:0; background:linear-gradient(135deg,#2563eb,#7c3aed,#06b6d4);">
+              <table role="presentation" width="100%">
+                <tr>
+                  <td style="padding:36px 24px 28px 24px; text-align:center;">
+                    <div style="font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#c7d2fe;">
+                      Order Confirmation
+                    </div>
+                    <div class="h1" style="font-size:28px; font-weight:800; color:#ffffff; margin-top:10px;">
+                      🎉 Your Order Has Been Received
+                    </div>
+                    <div style="margin-top:16px;">
+                      <span style="display:inline-block; background:rgba(255,255,255,0.15); color:#ffffff; padding:10px 18px; border-radius:999px; font-weight:600; font-size:14px;">
+                        Order ID: {{ order.order_number }}
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <!-- Decorative wave -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" width="100%" height="60">
+                <path fill="#ffffff" d="M0,64L60,69.3C120,75,240,85,360,85.3C480,85,600,75,720,69.3C840,64,960,64,1080,69.3C1200,75,1320,85,1380,90.7L1440,96L1440,0L0,0Z"></path>
+              </svg>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td class="p-24" style="padding:28px;">
+              <p style="margin:0 0 14px 0; font-size:16px; color:#111827;">
+                Hi <strong>{{ user.first_name }}</strong>,
+              </p>
+              <p style="margin:0 0 20px 0; font-size:15px; line-height:1.6; color:#374151;">
+                Thanks for shopping with us! We’ve received your order and are preparing it for shipment. You’ll get another email when your package is on the way 🚚.
+              </p>
+
+              <!-- Status steps -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:16px 0 20px 0;">
+                <tr>
+                  <td style="padding:0;">
+                    <div style="display:flex; align-items:center; justify-content:center; gap:14px; font-size:13px;">
+                      <div style="display:flex; align-items:center; gap:6px;">
+                        <span style="width:12px; height:12px; background:#10b981; border-radius:50%; display:inline-block;"></span>
+                        <span style="font-weight:600; color:#111827;">Received</span>
+                      </div>
+                      <span style="color:#9ca3af;">→</span>
+                      <div style="display:flex; align-items:center; gap:6px;">
+                        <span style="width:12px; height:12px; background:#f59e0b; border-radius:50%; display:inline-block;"></span>
+                        <span style="color:#111827;">Processing</span>
+                      </div>
+                      <span style="color:#9ca3af;">→</span>
+                      <div style="display:flex; align-items:center; gap:6px;">
+                        <span style="width:12px; height:12px; background:#9ca3af; border-radius:50%; display:inline-block;"></span>
+                        <span style="color:#111827;">Shipped</span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Info card -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e7eb; border-radius:12px; overflow:hidden; margin-bottom:20px;">
+                <tr>
+                  <td style="background:linear-gradient(135deg,#f0f9ff,#ecfeff); padding:18px;">
+                    <div style="font-weight:700; font-size:15px; color:#0f172a;">Order Details</div>
+                    <div style="margin-top:8px; font-size:14px; color:#334155;">
+                      Order Number: <strong>{{ order.order_number }}</strong>
+                    </div>
+                    <!-- Example fields -->
+                    <div style="margin-top:4px; font-size:14px; color:#334155;">
+                      Order Date: <strong>{{ order.created_at|default:"--" }}</strong>
+                    </div>
+                    <div style="margin-top:4px; font-size:14px; color:#334155;">
+                      Total: <strong>₹{{ order.order_total|default:"0.00" }}</strong>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA buttons -->
+              <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+                {% if order_url %}
+                  <a href="{{ order_url }}" class="btn" style="background:#2563eb; color:#ffffff;">
+                    🔎 View / Track Order
+                  </a>
+                {% else %}
+                  <a href="#" class="btn" style="background:#2563eb; color:#ffffff;">
+                    🔎 View / Track Order
+                  </a>
+                {% endif %}
+                <a href="mailto:boatpro38@gmail.com" class="btn" style="background:#10b981; color:#ffffff;">
+                  ✉️ Email Support
+                </a>
+                <a href="tel:56485225" class="btn" style="background:#f59e0b; color:#ffffff;">
+                  ☎️ Call 5648 5225
+                </a>
+              </div>
+
+              <!-- Friendly note -->
+              <p style="margin:22px 0 0 0; font-size:13px; color:#6b7280; text-align:center;">
+                If you have any questions, just reply to this email — our support team is always happy to help 💙
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:20px; background:#f8fafc; text-align:center;">
+              <div style="font-size:12px; color:#94a3b8; line-height:1.6;">
+                © {{ current_year|default:'2025' }} <strong>Swyftcart</strong> • Thank you for your order 💖 <br>
+                Need more help? Email us at <a href="mailto:boatpro38@gmail.com" style="color:#2563eb; text-decoration:none;">boatpro38@gmail.com</a> or call <a href="tel:56485225" style="color:#2563eb; text-decoration:none;">5648 5225</a>
+              </div>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+{% endautoescape %}

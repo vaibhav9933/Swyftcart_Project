@@ -1,0 +1,180 @@
+
+  body {
+  background: linear-gradient(to right, #68d0eb, #bce1e7ff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.section-content {
+  padding: 40px 15px;
+}
+
+.card {
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+}
+
+.card-title {
+  font-size: 26px;
+  color: #0072ff;
+  font-weight: bold;
+  text-align: center;
+}
+
+label {
+  font-weight: 600;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  margin-bottom: 10px;
+  transition: 0.3s ease-in-out;
+}
+
+input:focus {
+  border-color: #0072ff;
+  box-shadow: 0 0 5px rgba(0, 114, 255, 0.5);
+  outline: none;
+}
+
+.btn-primary {
+  background-color: #0072ff;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #005ecb;
+  transform: scale(1.02);
+}
+
+.alert {
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.alert-success {
+  background-color: #d1f7d6;
+  color: #2f6627;
+}
+
+.alert-danger {
+  background-color: #ffe6e6;
+  color: #cc0000;
+}
+
+@media screen and (max-width: 576px) {
+  .card {
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 22px;
+  }
+
+  .form-row {
+    display: block;
+  }
+
+  .form-group {
+    width: 100% !important;
+  }
+}
+
+.verification-alert {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    color: #0d47a1;
+    border-left: 6px solid #1976d2;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 100px auto;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .verification-alert img {
+    width: 120px;
+    max-width: 40%;
+    margin-bottom: 16px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .verification-alert strong {
+    color: #d32f2f;
+  }
+
+  .verification-alert a {
+    color: #1976d2;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .verification-alert a:hover {
+    color: #0d47a1;
+    text-decoration: underline;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Mobile responsiveness */
+  @media (max-width: 600px) {
+    .verification-alert {
+      font-size: 16px;
+      padding: 15px;
+    }
+    .verification-alert img {
+      width: 90px;
+    }
+  }
+
+
+.login-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(45deg, #ff6b6b, #f06595, #8dcddaff);
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.login-btn:hover {
+  background: linear-gradient(45deg, #a599ccff, #93e7e3ff, #77b8caff);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 480px) {
+  .login-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+<link rel="stylesheet" href="{% static 'css/common.css' %}">
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y" style="background-color: #c9ddf4ff; min-height: 100vh; padding-top: 40px; padding-bottom: 40px;">
+
+  <!-- ============================ COMPONENT REGISTER   ================================= -->
+  <div class="card mx-auto shadow" style="max-width:520px; border-radius: 20px;">
+    <article class="card-body">
+
+      <header class="mb-4">
+        <h4 class="card-title text-center text-primary">Sign up</h4>
+      </header>
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success text-center" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+
+        {% if form.errors %}
+          <div class="alert alert-danger">
+            <ul>
+              {% for field in form %}
+                {% for error in field.errors %}
+                  <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        <div class="form-row">
+          <div class="col form-group">
+            <label>First name</label>
+            {{ form.first_name }}
+          </div>
+          <div class="col form-group">
+            <label>Last name</label>
+            {{ form.last_name }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Email Address</label>
+            {{ form.email }}
+          </div>
+          <div class="form-group col-md-6">
+            <label>Phone Number</label>
+            {{ form.phone_number }}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Create password</label>
+            {{ form.password }}
+          </div>
+          <div class="form-group col-md-6">
+            <label>Repeat password</label>
+            {{ form.confirm_password }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block"> Register </button>
+        </div>
+
+      </form>
+    </article>
+  </div>
+
+  <p class="text-center mt-4 text-dark">Have an account? 
+    <a href="{% url 'login' %}" class="text-primary">Log In</a>
+  </p>
+  <br><br>
+  <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+
+</section>
+<script>
+  setTimeout(function() {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => alert.remove());
+  }, 4000);
+</script>
+{% endblock %}
