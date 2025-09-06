@@ -132,17 +132,23 @@ SWYFTCART/
 - Deploy automatically with every push 🚀
 
 ## 🖼️ Screenshots:
-<img width="1920" height="1039" alt="Image" src="https://github.com/user-attachments/assets/f5698403-6a92-4760-a953-2610bd122f9b" />
+<img width="1920" height="1039" alt="Image" src="https://github.com/user-attachments/assets/71e4902c-c383-4505-b1a0-762bb7bb438a" />
 
-<img width="1920" height="1042" alt="Image" src="https://github.com/user-attachments/assets/cf6d211a-b95b-4aac-afb7-70fd1d24afac" />
 
-<img width="1920" height="1035" alt="Image" src="https://github.com/user-attachments/assets/d2a26378-dc0f-475d-a46c-563ae0c49462" />
+<img width="1920" height="1042" alt="Image" src="https://github.com/user-attachments/assets/16ba366c-05df-437c-bf39-c4306059b2fb" />
 
-<img width="1920" height="1027" alt="Image" src="https://github.com/user-attachments/assets/6a74f35c-782d-4a5a-9e3b-87b264448ecc" />
 
-<img width="1920" height="990" alt="Image" src="https://github.com/user-attachments/assets/ab5c3d8b-69b1-4e9e-b49f-07549e5566b4" />
+<img width="1920" height="1035" alt="Image" src="https://github.com/user-attachments/assets/0c9225b2-4cdc-4e5f-b848-801210e7043e" />
 
-<img width="1920" height="1030" alt="Image" src="https://github.com/user-attachments/assets/70db4425-e73c-45e7-8d40-d5d289b7a09d" />
+
+<img width="1920" height="990" alt="Image" src="https://github.com/user-attachments/assets/e90ee1cc-1547-44f2-a3d0-572941c7e128" />
+
+
+<img width="1920" height="1027" alt="Image" src="https://github.com/user-attachments/assets/d95724de-13e4-4e24-9749-bca8268fbe7c" />
+
+
+<img width="1920" height="1030" alt="Image" src="https://github.com/user-attachments/assets/b7068874-f5f6-454d-9482-8d629f3f9644" />
+
 
 
 ## 📊 Performance & Accessibility
